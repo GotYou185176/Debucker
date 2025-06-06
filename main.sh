@@ -1,9 +1,10 @@
 #!/bin/bash
 echo "Welcome to Debucker"
-index=1;
+index=1
 read -p "Enter File name(without extension): " file_name
 read -p "Enter Extension:  " extension
 touch temp.$extension
+
 if [ -f "$file_name.$extension" ]; then
     echo " "
     echo "Options: "
@@ -11,11 +12,13 @@ if [ -f "$file_name.$extension" ]; then
     echo " "
     echo " "
     echo "Contents of the file:"
-    for line in $(cat "$file_name.$extension"); do
+
+    while IFS= read -r line; do
         echo "$index:  $line"
         read -p "Enter:  " option
-        if [ $option -eq 1 ]; then
-            cat "$file_name.$extension">>line
+
+        if [ "$option" -eq 1 ]; then
+            echo "$line" >> temp.$extension
             echo "Attempting to execute temp.$extension..."
 
             case "$extension" in
@@ -53,23 +56,26 @@ if [ -f "$file_name.$extension" ]; then
             echo "Execution completed."
             echo " "
             echo " "
-            echo " "
-        elif [ $option -eq 0 ]; then
+
+        elif [ "$option" -eq 0 ]; then
             echo "Exiting..."
             exit 0
 
-        elif [ $option -eq 2 ]; then
+        elif [ "$option" -eq 2 ]; then
             continue
-        elif [ $option -eq 3 ]; then
+
+        elif [ "$option" -eq 3 ]; then
             break
+
         else
             echo "Invalid option"
             break
         fi
-        let index=$((index+1))
 
-    done
+        index=$((index + 1))
+    done < "$file_name.$extension"
 else
     echo "File does not exist."
 fi
+
 rm temp.$extension
