@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Welcome to Debucker"
 index=1;
 read -p "Enter File name(without extension): " file_name
 read -p "Enter Extension:  " extension
