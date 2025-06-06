@@ -57,15 +57,11 @@ if [ -f "$file_name.$extension" ]; then
             echo " "
             echo " "
 
-        elif [ "$option" -eq 0 ]; then
-            echo "Exiting..."
-            exit 0
-
         elif [ "$option" -eq 2 ]; then
             continue
 
         elif [ "$option" -eq 3 ]; then
-            break
+            exit 0
 
         else
             echo "Invalid option"
