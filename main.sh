@@ -35,7 +35,15 @@ if [ -f "$file_name.$extension" ]; then
                     javac temp.$extension && java "${file_name}"  # Assumes class name = file name
                     ;;
                 c)
-                    gcc temp.$extension -o temp_exec && ./temp_exec && rm temp_exec
+                    read -p "1. GCC or 2. clang" compiler;
+                    if(compiler==1){
+                        gcc temp.$extension -o temp.exe && ./temp.exe && rm temp.exe
+                    }
+                    else if(compiler==2)
+                        clang temp.$extension -o temp.exe && ./temp.exe && rm temp.exe
+                    else
+                        echo "⚠️ Unknown compiler choice."
+                    fi
                     ;;
                 cpp)
                     g++ temp.$extension -o temp_exec && ./temp_exec && rm temp_exec
