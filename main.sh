@@ -36,17 +36,24 @@ if [ -f "$file_name.$extension" ]; then
                     ;;
                 c)
                     read -p "1. GCC or 2. clang" compiler;
-                    if(compiler==1){
+                    if [ compiler==1 ]; then
                         gcc temp.$extension -o temp.exe && ./temp.exe && rm temp.exe
-                    }
-                    else if(compiler==2)
+                    
+                    elif [ compiler==2 ]; then
                         clang temp.$extension -o temp.exe && ./temp.exe && rm temp.exe
                     else
                         echo "⚠️ Unknown compiler choice."
                     fi
                     ;;
                 cpp)
-                    g++ temp.$extension -o temp_exec && ./temp_exec && rm temp_exec
+                    read -p "1. G++ or 2. clang++" compiler;
+                    if [ compiler==1 ]; then
+                        g++ temp.$extension -o temp.exec && ./temp.exe && rm temp.exe
+                    elif [ compiler==2 ]; then
+                        clang++ temp.$extension -o temp.exe && ./temp.exe && rm temp.exe
+                    else
+                        echo "⚠️ Unknown compiler choice."
+                    fi 
                     ;;
                 rb)
                     ruby temp.$extension
